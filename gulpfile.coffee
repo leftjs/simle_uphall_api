@@ -11,6 +11,10 @@ exit = require('gulp-exit')
 gulp.task 'default',(callback) ->
   runSequence(['clean'],['coffee'],['copyFiles'],['serve','watch'],['mocha'],callback)
 
+
+gulp.task 'build',(callback) ->
+  runSequence(['clean'],['coffee'],['copyFiles'],callback)
+
 gulp.task('coffee', ->
   gulp.src(['./**/*.coffee','!gulpfile.coffee'])
   .pipe(coffee({bare: true}).on('error', gutil.log))
