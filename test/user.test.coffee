@@ -13,6 +13,7 @@ describe("用户相关", () ->
     avatar_uri: 'http://ww3.sinaimg.cn/mw690/71ae9b51gw1f34ggm06a9j20cs0cs74t.jpg'
   }
   userId = ""
+
   it("用户注册",(done) ->
     request(app)
     .post('/users/register')
@@ -42,6 +43,7 @@ describe("用户相关", () ->
     )
     .end(done)
   )
+
 
 
 

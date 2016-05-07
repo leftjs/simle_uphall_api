@@ -25,9 +25,6 @@ app.use(cookieParser())
 #console.log(path.join(__dirname,'../images'))
 app.use('/images',express.static(path.join(__dirname,'../images')))
 
-
-
-
 app.use(cors())
 
 #app.use('/', routes)
@@ -40,6 +37,10 @@ app.use('/users', userRoutes)
 app.use('/foods', foodRoutes)
 app.use('/messages', messageRoutes)
 app.use('/orders', orderRoutes)
+
+
+
+
 
 
 
