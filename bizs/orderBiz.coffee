@@ -21,12 +21,16 @@ makeOneOrder = (req,res,next) ->
     return next(err) if err
     return next(commonBiz.customError(404,"该食物不存在,请检查您的食物id")) if not food
     db.orders.insert({user: user, food: food}, (err,order) ->
-
       return next(err) if err
       return next(commonBiz.customError(400,"添加订单失败")) if not order
-      return res.json(order)
-    )
-  )
+
+      db.foods.update({_id: foodId},{$inc: {orderCount: 1}},(err,numReplaced) ->
+        return next(err) if err
+        return next(commonBiz.customError(400,"添加订单失败")) if numReplaced is 0
+        return res.json(order)
+  )))
+
+
 
 
 

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 export NODE_ENV=production
 git reset --hard
 git pull origin HEAD

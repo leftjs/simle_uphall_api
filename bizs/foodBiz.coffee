@@ -4,6 +4,8 @@ db = require('./../libs/db')
 
 config = require('./../config/config')
 
+moment = require 'moment'
+
 md5Util = require('./../utils/md5Util')
 Utils = require './../utils/Utils'
 
@@ -12,6 +14,8 @@ _ = require('underscore')
 
 
 buildFoodWithBody = (body) ->
+
+  moment.locale('zh_cn')
   return postData = {
     name: if body.name? then body.name else "麻辣香锅"
     price: if body.price? then body.price else 10
@@ -25,7 +29,25 @@ buildFoodWithBody = (body) ->
     pic_url: if body.pic_url? then body.pic_url else ""
     like: if body.like? then body.like else 0
     description: if body.description? then body.description else "位于食堂的美食,永远有让人回味无穷的感觉"
+    orderCount: 0
+    start_time: if body.start_time? then body.start_time else "12:00"
+    end_time: if body.end_time? then body.end_time else "12:00"
   }
+
+
+#  {
+#    "name": "麻辣香锅",
+#    "price": 10,
+#    "discount": 0.4,
+#    "is_recommended": true,
+#    "is_hot": true,
+#    "is_breakfast": true,
+#    "is_lunch": true,
+#    "is_dinner": true,
+#    "address": "食堂三楼",
+#    "start_time": "2012-12-12 12:33",
+#    "end_time": "2012-12-12 12:33"
+#  }
 
 publishFood = (req,res,next) ->
   body = req.body
@@ -71,7 +93,7 @@ getFoods = (req,res,next) ->
 deleteFood = (req,res,next) ->
   db.foods.remove({_id: req.params["foodId"]},(err,numRemoved) ->
     return next(err) if err
-    retrun next(commonBiz.customError(404, "该商品不存在")) if numRemoved is 0
+    return next(commonBiz.customError(404, "该商品不存在")) if numRemoved is 0
     res.json({msg: "删除成功"})
   )
 
