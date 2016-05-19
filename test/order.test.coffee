@@ -65,6 +65,7 @@ describe('订单相关', ->
     request(app)
     .post('/orders/' + foodId)
     .set('x-token',token)
+    .send({orderTime: '11:20'})
     .expect(200)
     .expect((result) ->
       console.log(result.body)
@@ -75,6 +76,7 @@ describe('订单相关', ->
     request(app)
     .post('/orders/' + foodId)
     .set('x-token',token)
+    .send({orderTime: '11:20'})
     .expect(200)
     .expect((result) ->
       console.log(result.body)

@@ -15,6 +15,7 @@ gulp.task 'default',(callback) ->
 gulp.task 'build',(callback) ->
   runSequence(['clean'],['coffee'],['copyFiles'],callback)
 
+
 gulp.task('coffee', ->
   gulp.src(['./**/*.coffee','!gulpfile.coffee'])
   .pipe(coffee({bare: true}).on('error', gutil.log))
