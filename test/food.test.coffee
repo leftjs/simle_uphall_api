@@ -17,6 +17,10 @@ describe('菜品相关', ->
     address: "东区食堂"
     pic_url:''
     like: 0
+    description: "位于食堂的美食,永远有让人回味无穷的感觉"
+    orderCount: 0
+    start_time: "12:00"
+    end_time: "12:00"
   }
 
   foodId = null
@@ -97,8 +101,4 @@ describe('菜品相关', ->
     )
     .end(done)
   )
-
-
-
-
 )

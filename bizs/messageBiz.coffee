@@ -18,8 +18,11 @@ publishMessage = (req,res,next) ->
   content = req.body.content
 
   db.messages.insert({
+#    发布者
     user: user,
+#    内容
     content: content,
+#    创建时间
     create_at: Date.now()
   },(err,msg) ->
     return next(err) if err

@@ -15,9 +15,6 @@ customError = (status,msg) ->
 #  验证并授权用户
 authAndSetUserInfo = (req,res,next) ->
   token = req.header('x-token')
-  console.log('------>>> token + '+ token)
-
-
   if not token
     return next(customError(401,'未传入token'))
   db.users.findOne({token:token,expiredTime:{$gt: Date.now()}}, (err,user) ->
@@ -27,7 +24,6 @@ authAndSetUserInfo = (req,res,next) ->
       return next()
     else
       return next(customError(401, 'api授权失败,请检查你的token'))
-
   )
 
 

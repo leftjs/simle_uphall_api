@@ -14,19 +14,13 @@ moment = require 'moment'
 
 
 
-
+# 生成一个订单
 makeOneOrder = (req,res,next) ->
-  console.log('=====================')
   user = req.userInfo
   foodId = req.params['foodId']
-  orderTime = req.body.orderTime
+  orderTime = if req.body.orderTime then req.body.orderTime else '11:20'
   timeArr = orderTime.match(/(\d+)(-|:)(\d+)/)
   orderTime = moment().set({hour: timeArr[1], minute: timeArr[3]}).format()
-#  var moment = require('moment')
-#var timeArr = '22:10'.match(/(\d+)(-|:)(\d+)/)
-#var time = moment().set({hour: timeArr[1], minute: timeArr[3]})
-#console.log(time.format())
-
   db.foods.findOne({_id: foodId},(err,food) ->
     return next(err) if err
     return next(commonBiz.customError(404,"该食物不存在,请检查您的食物id")) if not food
@@ -39,11 +33,6 @@ makeOneOrder = (req,res,next) ->
         return next(commonBiz.customError(400,"添加订单失败")) if numReplaced is 0
         return res.json(order)
   )))
-
-
-
-
-
 
 getOrdersByUserId = (req,res,next) ->
   userId = req.params['userId']
